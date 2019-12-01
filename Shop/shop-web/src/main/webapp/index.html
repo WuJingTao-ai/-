@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Title</title>
+    <meta charset="UTF-8">
+    <link type="text/css" href="css/style.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="commons/bootstrap/css/bootstrap.min.css">
+    <link href="commons/datatable/DataTables-1.10.18/css/dataTables.bootstrap.min.css" rel="stylesheet"/>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script src="commons/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="commons/datatable/DataTables-1.10.18/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="commons/datatable/DataTables-1.10.18/js/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" src="commons/dateFormat.js"></script>
+</head>
+<body>
+<button class="btn btn-primary glyphicon glyphicon-shopping-cart" type="button" onclick="addCarts()">增加</button>
+
+<table id="productTable" border="1" style="width: 500px;height: 50px"></table>
+
+<script>
+$( function a() {
+        var productTable = $("#productTable").DataTable({
+            "autoWidth": true, //自适应宽度
+            "info": true,//展示表格左下角信息,分页栏
+            "lengthChange": true,//是否改变每页展示的条数
+            "searching": false,
+            "lengthMenu": [2, 5, 10],
+            "ordering": false,//是否允许排序
+            "paging": true,//是否允许开启本地分页
+            "processing": true,//是否先处理状态
+            "serverSide": true,//true是服务器模式，false是客户端模式
+            //如何和后台进行交互并展示
+            "ajax": {
+                url: "http://localhost:8004/Cart/dddd",
+                type: "get",
+                "dataSrc": function (result) {
+                    return result.data;
+                }
+            },
+            //数据如何展示到表格中
+            "columns": [
+                {"data": "productName", "title":" 名称"},
+                {
+                    "data": "productId", "title": "操作", render: function (data, type, row, meta) {
+                        return ' <button class="btn btn-primary glyphicon glyphicon-list-alt" type="button" onclick="">修改</button>' + '&nbsp;' + '&nbsp;' +
+                            '<button class="btn btn-primary glyphicon glyphicon-edit" type="button" onclick="delect(' + data + ')">删除</button>'
+                            ;
+                    }
+                }
+            ],
+            "language": {
+                "url": "commons/datatable/Chinese.json"
+            }
+        })
+    }
+)
+
+function addCarts() {
+       location.href ="add.html";
+    
+}
+</script>
+<script type="text/javascript">
+    function delect(id) {
+        $.ajax({
+            url:"http://localhost:8004/Cart/"+id,
+            dataType: "get",
+            dataType : "jsonp",//数据类型为jsonp
+            jsonp : "jsonpCallback",
+            success: function () {
+                alert("删除成功！")
+
+            }
+        });
+        location.href="http://localhost:8080/";
+    }
+    function ww() {
+        $.ajax({
+            url:"http://localhost:8004/Cart/ww",
+            dataType: "post",
+            type:"json",
+            success: function () {
+             alert("成功！！")
+
+            }
+        });
+
+    }
+</script>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+   <form>
+  名称： <input type="text"  id="productName">
+<input type="button" onclick="add()">
+   </form>
+<script>
+
+    function add() {
+        var productName = $("#productName").val();
+        $.ajax({
+            url:"http://localhost:8004/Cart/add",
+                dataType: "get",
+                dataType : "jsonp",//数据类型为jsonp
+                jsonp : "jsonpCallback",
+            data:{"productName":productName},
+            success: function () {
+                alert("成功！！")
+
+            }
+        });
+        location.href="http://localhost:8080/";
+
+    }
+
+</script>
+
+</body>
+</html>

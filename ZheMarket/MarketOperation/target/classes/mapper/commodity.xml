@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.zjs.dao.CommodityDao">
+    <select id="Count_Commodity" parameterType="java.util.Map"  resultType="int">
+   select   count(*) from    t_Commodity   tc  LEFT JOIN  t_type tt ON   tc.commodityType = tt.id    where 1=1
+    </select>
+
+    <select id="CommodityQuery"  parameterType="java.util.Map" resultType="cn.zjs.entity.Commodity" >
+        select  * from    t_Commodity   tc  LEFT JOIN  t_type tt ON   tc.commodityType = tt.id    where 1=1
+
+        <if test="name!=null and name!=''">
+            and userName like "%"#{name}"%"
+        </if>
+        limit   #{startIndex},#{pageSize}
+    </select>
+    <delete id="Delect_Commodity" parameterType="int">
+        delete  from  t_Commodity  where   id=#{id}
+    </delete>
+    <select id="UpDate_Commodity" parameterType="int" resultType="cn.zjs.entity.Commodity">
+select * from    t_Commodity   tc  LEFT JOIN  t_type tt  ON   tc.commodityType = tt.id    where  tc.id=#{id}
+    </select>
+
+</mapper>

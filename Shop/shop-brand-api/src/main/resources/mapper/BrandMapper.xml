@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fh.mapper.BrandMapper" >
+    <select id="queryBrandByCateId" resultType="com.fh.bean.Brand" parameterType="int">
+      select *  from t_brand b LEFT JOIN
+        t_shop_brand_categroy bc ON
+        b.brandId=bc.bid
+    </select>
+
+</mapper>
